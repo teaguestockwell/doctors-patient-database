@@ -13,7 +13,7 @@ void main() async {
     MaterialApp(
       title: 'Flutter Demo',
       theme: theme,
-      home: ProfileEdit('234567890')
+      home: ProfileSearch()
     )
   );
 }

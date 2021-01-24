@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import 'commom_model.dart';
-
-class Patient implements CommonModel{
+class Patient{
   String 
     id,
     name,

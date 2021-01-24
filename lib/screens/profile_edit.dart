@@ -26,7 +26,7 @@ class _ProfileEditState extends State<ProfileEdit> {
     return StreamProvider<Patient>.value(
       value: value,
       child: Scaffold(
-        appBar: AppBar(title: Text('Patient Profile')),
+        appBar: AppBar(title: Text('Edit Patient')),
         body: PatientFeilds(this.widget.id)
       )
     );
@@ -92,7 +92,7 @@ class _PatientFeildsState extends State<PatientFeilds> {
 
   @override
   Widget build(BuildContext context) {
- final patient = Provider.of<Patient>(context) ?? [];
+ final patient = Provider.of<Patient>(context) ?? Patient();
   pat = patient;
   
     return Padding(

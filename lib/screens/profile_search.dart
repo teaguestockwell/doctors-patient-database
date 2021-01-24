@@ -1,4 +1,5 @@
 import 'package:doctors_patient_database/screens/profile_add.dart';
+import 'package:doctors_patient_database/screens/profile_home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/patient.dart';
@@ -69,6 +70,14 @@ class ProfileList extends StatefulWidget {
 
 class _ProfileListState extends State<ProfileList> {
 
+    void profileHome(String id){
+     Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (_) => ProfileHome(id: id)
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     final patients = Provider.of<List<Patient>>(context) ?? [];
@@ -80,7 +89,7 @@ class _ProfileListState extends State<ProfileList> {
         return Center(
           child: But(
             text: getPatientButtonText(patients[i]),
-            onpress: (){patients[i].id;},
+            onpress: () => profileHome(patients[i].id),
           )
         );
       },

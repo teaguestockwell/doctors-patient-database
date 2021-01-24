@@ -1,7 +1,10 @@
+import 'package:doctors_patient_database/screens/profile_edit.dart';
+import 'package:doctors_patient_database/screens/profile_search.dart';
+
+import 'screens/profile_add.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'constant.dart';
-import 'screens/patient_profile.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,7 +13,7 @@ void main() async {
     MaterialApp(
       title: 'Flutter Demo',
       theme: theme,
-      home: Center(child: PatientProfile(id: '123456789',))
+      home: ProfileEdit('234567890')
     )
   );
 }

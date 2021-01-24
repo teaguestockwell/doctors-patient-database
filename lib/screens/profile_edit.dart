@@ -41,7 +41,7 @@ class PatientFeilds extends StatefulWidget {
 }
 
 class _PatientFeildsState extends State<PatientFeilds> {
-  var service = PatientService();
+  final service = PatientService();
   Patient pat;
 
   //copy the new key and value into a new patient
@@ -51,6 +51,12 @@ class _PatientFeildsState extends State<PatientFeilds> {
 
   void save(){
     service.createOrUpdate(pat.toMap, this.widget.id).then((_){ showSnack();});
+  }
+
+  void delete(){
+    service.delete(this.widget.id).then(
+      (_) => Navigator.pop(context)
+    );
   }
 
   void showSnack(){
@@ -64,21 +70,25 @@ class _PatientFeildsState extends State<PatientFeilds> {
 
   Widget getFeild(int i, Map m){
     if(i < Patient.numFields){
-      if(i > 0){
-        final value = m.values.elementAt(i);
-        final key = m.keys.elementAt(i);
-        return TextField(
-          controller: TextEditingController()..text = value,
-          decoration: InputDecoration(labelText: key),
-          onChanged: (s){onChanged(key,s);},
-        );
-      }else{
-      return Text('id: ${m['id']}');
-      }
-    }else{
-    return But(text: 'Save', onpress: save);
+
+      if(i==0){return Text('id: ${m['id']}');}
+      
+      final value = m.values.elementAt(i);
+      final key = m.keys.elementAt(i);
+      return TextField(
+        controller: TextEditingController()..text = value,
+        decoration: InputDecoration(labelText: key),
+        onChanged: (s){onChanged(key,s);},
+      );
     }
-  }
+
+    if(i == Patient.numFields){
+      return But(text: 'Delete & Return', onpress: delete);
+    }
+
+    return But(text: 'Save', onpress: save);
+   }
+
 
   @override
   Widget build(BuildContext context) {

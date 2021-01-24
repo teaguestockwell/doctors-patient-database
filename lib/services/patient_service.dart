@@ -32,6 +32,11 @@ class PatientService{
     ).toList();
   }
 
+  //delete patient doc
+  Future delete(String id){
+    return patientsCollection.doc(id).delete();
+  }
+
 
   //get patient streams
   Stream<List<Patient>> get patients {

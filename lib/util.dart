@@ -20,15 +20,13 @@ String getAge(String dob){
   if(dob != null){
   var ret = dob;
   if(ret.length == 12){
-    var year = int.parse(ret.substring(0,3));
-    var month = int.parse(ret.substring(4,5));
-    var day =  int.parse(ret.substring(6,7));
-    var hh =  int.parse(ret.substring(8,9));
-    var mm =  int.parse(ret.substring(10,11));
-
+    var year = int.parse(ret.substring(0,4));
+    var month = int.parse(ret.substring(5,6));
+    var day =  int.parse(ret.substring(7,8));
+    var hh =  int.parse(ret.substring(9,10));
+    var mm =  int.parse(ret.substring(11,12));
     var now = DateTime.now();
     var then = DateTime(year,month,day,hh,mm);
-
     int age  = now.year - then.year;
     if(then.month > now.month){
       age--;

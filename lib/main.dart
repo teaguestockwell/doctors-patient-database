@@ -1,15 +1,16 @@
+import 'package:doctors_patient_database/screens/patient_search.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
 import 'constant.dart';
-import 'screens/auth_screen.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(
     MaterialApp(
       title: 'Flutter Demo',
       theme: theme,
-      home: Center(child: AuthScreen())
+      home: Center(child: PatientSearch())
     )
   );
 }

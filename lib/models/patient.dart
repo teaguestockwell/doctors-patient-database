@@ -42,5 +42,7 @@ class Patient{
     phone = json['phone'],
     email = json['email'],
     doctor = json['doctor'],
-    insurance = json['insurance'];
+    insurance = json['insurance']{
+      this.toString();
+    }
 }

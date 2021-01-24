@@ -1,26 +1,33 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/patient.dart';
-import 'package:firebase_core/firebase_core.dart';
 
-FirebaseApp fb;
+class PatientService{
+  String id;
+  PatientService({this.id});
 
-void initFirestore() async{
- fb = await Firebase.initializeApp();
-}
-
-//create new patient
+  final CollectionReference patientsCollection = FirebaseFirestore.instance.collection('patients');
+  //create new patient
 
 
-//get a stream of a patient given id
+  //get a stream of a patient given id
 
-//get all patients
-Stream<List<Patient>> getPatientList() {
-  if(fb == null){initFirestore();}
-    return FirebaseFirestore.instance.collection('user')
-        .snapshots()
-        .map((snapShot) => snapShot.docs
-        .map((doc) => Patient.fromJson(doc.data()))
-        .toList());
+  //patient list from snapshot
+  List<Patient> _brewListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map(
+      (doc){
+        print(doc.data());
+        return Patient.fromJson(doc.data());
+      }
+    ).toList();
   }
+
+  //get patient streams
+  Stream<List<Patient>> get patients {
+    return patientsCollection.snapshots()
+      .map(_brewListFromSnapshot);
+  }
+
+  //
+}
 
 

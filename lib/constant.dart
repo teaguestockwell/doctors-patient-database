@@ -19,3 +19,12 @@ static final ts =  TextStyle(
   fontSize: 16
 );
 }
+
+class Snackz{
+  static final y = Butz.y;
+  static final ts =  TextStyle(
+  color: Colors.white70,
+  fontWeight: FontWeight.bold,
+  fontSize: 16
+);
+}

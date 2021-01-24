@@ -1,19 +1,41 @@
-import '../widgets/but.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/patient.dart';
 import '../services/patient_service.dart';
 import '../util.dart';
+import '../widgets/but.dart';
 
-class PatientSearch extends StatelessWidget {
+class PatientSearch extends StatefulWidget {
+
+  @override
+  _PatientSearchState createState() => _PatientSearchState();
+}
+
+class _PatientSearchState extends State<PatientSearch> {
+  var value = PatientService().searchPatientName('');
+
+   void onSearch(String name){
+    print(name);
+    setState((){value = PatientService().searchPatientName(name);});
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamProvider<List<Patient>>.value(
-      value: PatientService().patients,
+      value: value,
       child: Scaffold(
-        backgroundColor: Colors.brown[50],
         appBar: AppBar(title: Text('Patient Search')),
-        body: PatientList()
+        body: ListView(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 10),
+              child: TextField(onChanged: onSearch, decoration: InputDecoration(labelText: 'Full Name Search: Case Sensative'),)
+            ),
+            PatientList()
+          ]
+        )
       ),
     );
   }
@@ -28,18 +50,20 @@ class _PatientListState extends State<PatientList> {
   @override
   Widget build(BuildContext context) {
     final patients = Provider.of<List<Patient>>(context) ?? [];
-    return ListView.builder(
-
+    return Padding(
+      padding: EdgeInsets.only(top: 10),
+      child:
+      ListView.builder(
+      shrinkWrap: true,
       itemCount: patients.length,
       itemBuilder: (_,i) {
         return Center(
           child: But(
             text: getPatientButtonText(patients[i]),
-            //send to patient profile
-            onpress: (){patients[i];},
+            onpress: (){patients[i].id;},
           )
         );
       },
-    );
+    ));
   }
 }

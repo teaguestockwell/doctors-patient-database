@@ -1,7 +1,7 @@
-import 'package:doctors_patient_database/screens/patient_search.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'constant.dart';
+import 'screens/patient_profile.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,7 +10,7 @@ void main() async {
     MaterialApp(
       title: 'Flutter Demo',
       theme: theme,
-      home: Center(child: PatientSearch())
+      home: Center(child: PatientProfile(id: '123456789',))
     )
   );
 }

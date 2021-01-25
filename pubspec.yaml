@@ -1,5 +1,5 @@
 name: doctors_patient_database
-description: A new Flutter project.
+description: LPG Patient DB
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -26,6 +26,8 @@ dependencies:
   provider:
   firebase_core: ^0.5.0
   cloud_firestore: ^0.14.0
+  uuid: ^2.2.2
+  intl: ^0.16.1
 
 
 

@@ -17,13 +17,12 @@ class _CheckupAddState extends State<CheckupAdd> {
   @override
   void initState(){
     super.initState();
-     check = Checkup(id: this.widget.id);
+     check = Checkup(patientid: this.widget.id);
   }
   final service = CheckupService();
   
   void save(){
     service.create(check.toMap).then((_){
-       // navigate back a screen here
        Navigator.pop(context);
     });
   }
@@ -33,9 +32,9 @@ class _CheckupAddState extends State<CheckupAdd> {
   }
 
   Widget getField(int i, Map m){
-    if(i < Checkup.numFields){
-
-      if(i==0){return Text('id: ${check.id}');}
+    if(i < Checkup.numFields ){
+      if(i==0){return Text('uuid: ${check.uuid}');}
+      if(i==1){return Text('patientid: ${check.patientid}');}
 
       final value = m.values.elementAt(i);
       final key = m.keys.elementAt(i);

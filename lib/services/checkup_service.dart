@@ -9,7 +9,6 @@ final CollectionReference checkupCollection = FirebaseFirestore.instance.collect
   List<Checkup> _checkupListFromSnapshots(QuerySnapshot snapshot) {
     return snapshot.docs.map(
       (doc){
-        print(doc.data());
         return Checkup.fromJson(doc.data());
       }
     ).toList();
@@ -21,8 +20,8 @@ final CollectionReference checkupCollection = FirebaseFirestore.instance.collect
   }
   
   ///read one
-  Stream<Checkup> getCheckup(String id){
-    return checkupCollection.where('id', isEqualTo: id).snapshots().map(
+  Stream<Checkup> getCheckupGivenUuid(String uuid){
+    return checkupCollection.where('uuid', isEqualTo: uuid).snapshots().map(
       (qs) => Checkup.fromJson(qs.docs.last.data())
     );
   }
@@ -36,8 +35,8 @@ final CollectionReference checkupCollection = FirebaseFirestore.instance.collect
   }
 
   ///read many given
-  Stream<List<Checkup>> searchCheckupGiven_id(String id){
-  return checkupCollection.where('id', isEqualTo: id)
+  Stream<List<Checkup>> searchCheckupGivenPatientId(String id){
+  return checkupCollection.where('patientid', isEqualTo: id)
     .snapshots().map(_checkupListFromSnapshots);
   }
 
@@ -53,8 +52,17 @@ final CollectionReference checkupCollection = FirebaseFirestore.instance.collect
   }
 
   ///delete where
-  Future delete(String id) async {
-    var query = checkupCollection.where('id', isEqualTo: id);
+  Future deleteWhereUuid(String uuid) async {
+    var query = checkupCollection.where('uuid', isEqualTo: uuid);
+    return query.get().then((s) => 
+    s.docs.forEach((d) => 
+      d.reference.delete()
+    ));
+  }
+
+  ///delete where
+  Future deleteWherePatientID(String patientid) async {
+    var query = checkupCollection.where('id', isEqualTo: patientid);
     return query.get().then((s) => 
     s.docs.forEach((d) => 
       d.reference.delete()

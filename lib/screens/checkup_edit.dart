@@ -1,16 +1,13 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../constant.dart';
 import '../models/checkup.dart';
 import '../services/checkup_service.dart';
-import '../services/patient_service.dart';
 import '../widgets/but.dart';
 
 class CheckupEdit extends StatefulWidget {
-  final String id;
-  CheckupEdit({@required this.id});
+  final String uuid;
+  CheckupEdit({@required this.uuid});
   @override
   _CheckupEditState createState() => _CheckupEditState();
 }
@@ -20,7 +17,7 @@ class _CheckupEditState extends State<CheckupEdit> {
 
   initState(){
     super.initState();
-    value = CheckupService().getCheckup(this.widget.id);
+    value = CheckupService().getCheckupGivenUuid(this.widget.uuid);
   }
 
   @override
@@ -29,20 +26,20 @@ class _CheckupEditState extends State<CheckupEdit> {
       value: value,
       child: Scaffold(
         appBar: AppBar(title: Text('Edit Checkup')),
-        body: PatientFeilds(this.widget.id)
+        body: CheckupFields(this.widget.uuid)
       )
     );
   }
 }
 
-class PatientFeilds extends StatefulWidget {
- final String id;
-  PatientFeilds(this.id);
+class CheckupFields extends StatefulWidget {
+ final String uuid;
+  CheckupFields(this.uuid);
   @override
-  _PatientFeildsState createState() => _PatientFeildsState();
+  _CheckupFieldsState createState() => _CheckupFieldsState();
 }
 
-class _PatientFeildsState extends State<PatientFeilds> {
+class _CheckupFieldsState extends State<CheckupFields> {
   final service = CheckupService();
   Checkup check;
 
@@ -52,11 +49,11 @@ class _PatientFeildsState extends State<PatientFeilds> {
   }
 
   void save(){
-    service.update(check.toMap, this.widget.id).then((_){ showSnack();});
+    service.update(check.toMap, this.widget.uuid).then((_){ showSnack();});
   }
 
   void delete(){
-    service.delete(this.widget.id).then(
+    service.deleteWhereUuid(check.uuid).then(
       (_) => Navigator.pop(context)
     );
   }
@@ -73,7 +70,8 @@ class _PatientFeildsState extends State<PatientFeilds> {
   Widget getFeild(int i, Map m){
     if(i < Checkup.numFields){
 
-      if(i==0){return Text('id: ${m['id']}');}
+      if(i==0){return Text('uuid: ${m['uuid']}');}
+      if(i==1){return Text('patientid: ${m['id']}');}
       
       final value = m.values.elementAt(i);
       final key = m.keys.elementAt(i);
@@ -85,10 +83,9 @@ class _PatientFeildsState extends State<PatientFeilds> {
     }
 
     if(i == Checkup.numFields){
-      return But(text: 'Delete & Return', onpress: delete);
+      return But(text: 'Save', onpress: save);
     }
-
-    return But(text: 'Save', onpress: save);
+    return But(text: 'Delete & Return', onpress: delete);
    }
 
 

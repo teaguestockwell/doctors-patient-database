@@ -1,6 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
+
 class Checkup{
   String
-    id,
+    uuid,
+    patientid,
     doctor,
     datetime,
     systolicbp,
@@ -9,10 +13,10 @@ class Checkup{
     height,
     medicines;
 
-static final numFields = 8;
+static final numFields = 9;
 
 Checkup({
-  this.id = '',
+  this.patientid = '',
   this.doctor = '',
   this.datetime = '',
   this.systolicbp = '',
@@ -20,10 +24,11 @@ Checkup({
   this.weight = '',
   this.height = '',
   this.medicines = ''
-});
+}): uuid = Uuid().v1();
 
 Checkup.fromJson(Map<String, dynamic> json):
-  id = json['id'] ?? '',
+  uuid = json['uuid'], 
+  patientid = json['patientid'] ?? '',
   doctor = json['doctor'] ?? '',
   datetime = json['datetime'] ?? '',
   systolicbp = json['systolicbp'] ?? '',
@@ -33,7 +38,8 @@ Checkup.fromJson(Map<String, dynamic> json):
   medicines = json['medicines'] ?? '';
 
   Map<String, String> get toMap => {
-    'id': id ?? '',
+    'uuid': uuid,
+    'patientid': patientid ?? '',
     'doctor': doctor ?? '',
     'datetime': datetime ?? '',
     'systolicbp': systolicbp ?? '',

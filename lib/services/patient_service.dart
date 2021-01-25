@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doctors_patient_database/services/checkup_service.dart';
 import '../models/patient.dart';
 
 class PatientService{
@@ -11,7 +12,6 @@ class PatientService{
   List<Patient> _patientListFromSnapshots(QuerySnapshot snapshot) {
     return snapshot.docs.map(
       (doc){
-        print(doc.data());
         return Patient.fromJson(doc.data());
       }
     ).toList();
@@ -20,8 +20,7 @@ class PatientService{
   ///
   Future<bool> isUniqueId(String id) async {
     QuerySnapshot rs = await patientsCollection.where('id', isEqualTo: id).get();
-    bool ret = rs.docs.isEmpty; print(ret);
-    return ret;
+    return rs.docs.isEmpty;
   }
 
    ///create
@@ -67,15 +66,6 @@ class PatientService{
     return query.get().then((s) => 
     s.docs.forEach((d) => 
       d.reference.delete()
-    ));
+    )).then((_) => CheckupService().deleteWherePatientID(id));
   }
-
-
 }
-
-
-
-
-
-
-

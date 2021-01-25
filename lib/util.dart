@@ -1,10 +1,10 @@
 
+import 'package:intl/intl.dart';
 import 'models/checkup.dart';
 import 'models/patient.dart';
 
-String getDateTime(int dt){
-if(dt != null){
-  var ret = dt.toString();
+String getDateTime(String dt){
+  var ret = dt.trim();
   if(ret.length == 12){
     var year = ret.substring(0,3);
     var month = ret.substring(4,5);
@@ -13,34 +13,59 @@ if(dt != null){
     var mm = ret.substring(10,11);
     return '${year}-${month}-${day} ${hh}:${mm}';
   }
-}
   return 'Invalid Date';
 }
 
-String getAge(String dob){
-  if(dob != null){
-  var ret = dob;
-  if(ret.length == 12){
-    var year = int.parse(ret.substring(0,4));
-    var month = int.parse(ret.substring(5,6));
-    var day =  int.parse(ret.substring(7,8));
-    var hh =  int.parse(ret.substring(9,10));
-    var mm =  int.parse(ret.substring(11,12));
-    var now = DateTime.now();
-    var then = DateTime(year,month,day,hh,mm);
-    int age  = now.year - then.year;
-    if(then.month > now.month){
-      age--;
-    } else if(then.month == now.month){
-      if(then.day > now.day){
-        age--;
-      }
-    }
-    return age.toString();
+String getdt(String dt){
+  dt = dt.trim();
+  if(dt.length == 12){
+    try{
+      final d = DateTime(
+        int.parse(dt.substring(0,4)),//year
+        int.parse(dt.substring(5,6)),//month
+        int.parse(dt.substring(7,8)),//day
+        int.parse(dt.substring(9,10)),//hh
+        int.parse(dt.substring(11,12)),//mm
+      );
+      final df = DateFormat('yyyy MM dd HH:mm');
+      return df.format(d);
+    } 
+    // ignore: avoid_catches_without_on_clauses
+    catch(_){return 'Invalid DateTime';}
   }
+  return 'Invald DateTime';
 }
-  return '';
-}
+
+String getAge(String dob){
+  dob = dob.trim();
+  if(dob.length == 12){
+    try{
+      final then = DateTime(
+        int.parse(dob.substring(0,4)),//year
+        int.parse(dob.substring(5,6)),//month
+        int.parse(dob.substring(7,8)),//day
+        int.parse(dob.substring(9,10)),//hh
+        int.parse(dob.substring(11,12)),//mm
+      );
+
+      var now = DateTime.now();
+      int age  = now.year - then.year;
+
+      if(then.month > now.month){age--;}
+      else if(
+        then.month == now.month
+        && then.day > now.day
+      ){
+        age--;
+      } 
+      return age.toString();
+    } 
+    // ignore: avoid_catches_without_on_clauses
+    catch(_){return 'Invalid DOB';}
+  }
+  return 'Invald DOB';
+  } 
+
 
 String getPatientButtonText(Patient p){
   String age = getAge(p.dob);
@@ -48,6 +73,7 @@ String getPatientButtonText(Patient p){
 }
 
 String getChecupButtonText(Checkup c){
-  return 'yyyymmddhhmm: ${c.datetime}\ndoctor: ${c.doctor}';
+  String dt = getdt(c.datetime);
+  return '${dt}\ndoctor: ${c.doctor}';
 }
 

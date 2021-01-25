@@ -23,7 +23,7 @@ class _CheckupHomeState extends State<CheckupHome> {
   @override
     void initState() {
       super.initState();
-      value = CheckupService().searchCheckupGiven_id(this.widget.id);
+      value = CheckupService().searchCheckupGivenPatientId(this.widget.id);
     }
 
     void addCheckup(){
@@ -64,11 +64,11 @@ class CheckupList extends StatefulWidget {
 
 class _CheckupListState extends State<CheckupList> {
 
-  void checkupEdit(String id){
+  void checkupEdit(String uuid){
     Navigator.push(
     context,
     MaterialPageRoute(
-      builder: (_) => CheckupEdit(id: id)
+      builder: (_) => CheckupEdit(uuid: uuid)
     ));
   }
 
@@ -81,11 +81,10 @@ class _CheckupListState extends State<CheckupList> {
       physics: NeverScrollableScrollPhysics(),
       itemCount: checkups.length,
       itemBuilder: (_,i) {
-        print('checkup builder: '+ checkups[i].toMap.toString());
         return Center(
           child: But(
             text: getChecupButtonText(checkups[i]),
-            onpress: () => checkupEdit(checkups[i].id),
+            onpress: () => checkupEdit(checkups[i].uuid),
           )
         );
       },

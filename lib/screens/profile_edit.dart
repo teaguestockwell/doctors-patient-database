@@ -86,10 +86,9 @@ class _PatientFeildsState extends State<PatientFeilds> {
     }
 
     if(i == Patient.numFields){
-      return But(text: 'Delete & Return', onpress: delete);
+      return But(text: 'Save', onpress: save);
     }
-
-    return But(text: 'Save', onpress: save);
+    return But(text: 'Delete & Return', onpress: delete);
    }
 
 

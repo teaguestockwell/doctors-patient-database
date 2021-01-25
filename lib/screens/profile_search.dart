@@ -17,7 +17,6 @@ class _ProfileSearchState extends State<ProfileSearch> {
   var value = PatientService().searchPatientName('');
 
    void onSearch(String name){
-    print(name);
     setState((){value = PatientService().searchPatientName(name);});
   }
 

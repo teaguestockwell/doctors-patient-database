@@ -7,8 +7,8 @@ import '../services/patient_service.dart';
 import '../widgets/but.dart';
 
 class ProfileEdit extends StatefulWidget {
-  final String id;
-  ProfileEdit({@required this.id});
+  final String patientid;
+  ProfileEdit({@required this.patientid});
   @override
   _ProfileEditState createState() => _ProfileEditState();
 }
@@ -18,7 +18,7 @@ class _ProfileEditState extends State<ProfileEdit> {
 
   initState(){
     super.initState();
-    value = PatientService().getPatient(this.widget.id);
+    value = PatientService().getPatientGivenPatientid(this.widget.patientid);
   }
 
   @override
@@ -27,15 +27,15 @@ class _ProfileEditState extends State<ProfileEdit> {
       value: value,
       child: Scaffold(
         appBar: AppBar(title: Text('Edit Patient')),
-        body: PatientFeilds(this.widget.id)
+        body: PatientFeilds(this.widget.patientid)
       )
     );
   }
 }
 
 class PatientFeilds extends StatefulWidget {
- final String id;
-  PatientFeilds(this.id);
+ final String patientid;
+  PatientFeilds(this.patientid);
   @override
   _PatientFeildsState createState() => _PatientFeildsState();
 }
@@ -50,12 +50,12 @@ class _PatientFeildsState extends State<PatientFeilds> {
   }
 
   void save(){
-    service.update(pat.toMap, this.widget.id).then((_){ showSnack();});
+    service.updateWherePatientid(pat.toMap, this.widget.patientid).then((_){ showSnack();});
   }
 
   void delete(){
     int count = 0;
-    service.delete(this.widget.id).then(
+    service.delete(this.widget.patientid).then(
       (_) => Navigator.popUntil(context, (route) {
       return count++ == 2;
       })
@@ -74,7 +74,7 @@ class _PatientFeildsState extends State<PatientFeilds> {
   Widget getFeild(int i, Map m){
     if(i < Patient.numFields){
 
-      if(i==0){return Text('id: ${m['id']}');}
+      if(i==0){return Text('${pat.toMap.keys.elementAt(i)}: ${pat.toMap.values.elementAt(i)}');}
       
       final value = m.values.elementAt(i);
       final key = m.keys.elementAt(i);

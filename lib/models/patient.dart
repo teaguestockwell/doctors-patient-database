@@ -1,7 +1,9 @@
+import 'package:uuid/uuid.dart';
 
 class Patient{
   String 
-    id,
+    patientid,
+    ssn,
     name,
     gender,
     dob,
@@ -14,10 +16,10 @@ class Patient{
     doctor,
     insurance;
 
-  static final numFields = 12;
+  static final numFields = 13;
 
   Patient({
-    this.id = '',
+    this.ssn ='',
     this.name = '',
     this.gender = '',
     this.dob = '',
@@ -29,10 +31,11 @@ class Patient{
     this.email = '',
     this.doctor = '',
     this.insurance = '',
-  });
+  }): patientid = Uuid().v1();
 
   Patient.fromJson(Map<String, dynamic> json):
-    id = json['id'] ?? '',
+    patientid = json['patientid'],
+    ssn = json['ssn'],
     name = json['name'] ?? '',
     gender =json['gender'] ?? '',
     dob = json['dob'] ?? '',
@@ -46,7 +49,8 @@ class Patient{
     insurance = json['insurance'] ?? '';
 
   Map<String,String> get toMap => {
-    'id': id ?? '',
+    'patientid': patientid ?? '',
+    'ssn': ssn ?? '',
     'name': name ?? '',
     'gender': gender ?? '',
     'dob': dob ?? '',

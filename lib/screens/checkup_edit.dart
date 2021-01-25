@@ -6,8 +6,8 @@ import '../services/checkup_service.dart';
 import '../widgets/but.dart';
 
 class CheckupEdit extends StatefulWidget {
-  final String uuid;
-  CheckupEdit({@required this.uuid});
+  final String checkupid;
+  CheckupEdit({@required this.checkupid});
   @override
   _CheckupEditState createState() => _CheckupEditState();
 }
@@ -17,7 +17,7 @@ class _CheckupEditState extends State<CheckupEdit> {
 
   initState(){
     super.initState();
-    value = CheckupService().getCheckupGivenUuid(this.widget.uuid);
+    value = CheckupService().getCheckupGivenCheckupid(this.widget.checkupid);
   }
 
   @override
@@ -26,15 +26,15 @@ class _CheckupEditState extends State<CheckupEdit> {
       value: value,
       child: Scaffold(
         appBar: AppBar(title: Text('Edit Checkup')),
-        body: CheckupFields(this.widget.uuid)
+        body: CheckupFields(this.widget.checkupid)
       )
     );
   }
 }
 
 class CheckupFields extends StatefulWidget {
- final String uuid;
-  CheckupFields(this.uuid);
+ final String checkupid;
+  CheckupFields(this.checkupid);
   @override
   _CheckupFieldsState createState() => _CheckupFieldsState();
 }
@@ -49,11 +49,11 @@ class _CheckupFieldsState extends State<CheckupFields> {
   }
 
   void save(){
-    service.update(check.toMap, this.widget.uuid).then((_){ showSnack();});
+    service.updateWhereCheckupid(check.toMap, this.widget.checkupid).then((_){ showSnack();});
   }
 
   void delete(){
-    service.deleteWhereUuid(check.uuid).then(
+    service.deleteWhereCheckupid(check.checkupid).then(
       (_) => Navigator.pop(context)
     );
   }
@@ -70,10 +70,10 @@ class _CheckupFieldsState extends State<CheckupFields> {
   Widget getFeild(int i, Map m){
     if(i < Checkup.numFields){
 
-      if(i==0){return Text('uuid: ${m['uuid']}');}
-      if(i==1){return Text('patientid: ${m['id']}');}
+      if(i==0){return Text('${check.toMap.keys.elementAt(i)}: ${check.toMap.values.elementAt(i)}');}
+      if(i==1){return Text('${check.toMap.keys.elementAt(i)}: ${check.toMap.values.elementAt(i)}');}
       
-      final value = m.values.elementAt(i);
+      final value = m.values.elementAt(i);;
       final key = m.keys.elementAt(i);
       return TextField(
         controller: TextEditingController()..text = value,

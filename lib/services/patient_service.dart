@@ -3,8 +3,7 @@ import 'package:doctors_patient_database/services/checkup_service.dart';
 import '../models/patient.dart';
 
 class PatientService{
-  String id;
-  PatientService({this.id});
+
 
   final CollectionReference patientsCollection = FirebaseFirestore.instance.collection('patients');
 
@@ -17,11 +16,11 @@ class PatientService{
     ).toList();
   }
 
-  ///
-  Future<bool> isUniqueId(String id) async {
-    QuerySnapshot rs = await patientsCollection.where('id', isEqualTo: id).get();
-    return rs.docs.isEmpty;
-  }
+  // ///
+  // Future<bool> isUniqueId(String uuid) async {
+  //   QuerySnapshot rs = await patientsCollection.where('uuid', isEqualTo: uuid).get();
+  //   return rs.docs.isEmpty;
+  // }
 
    ///create
    Future create(Map m) async{
@@ -29,8 +28,8 @@ class PatientService{
   }
 
   ///read one
-  Stream<Patient> getPatient(String id){
-    return patientsCollection.where('id', isEqualTo: id).snapshots().map(
+  Stream<Patient> getPatientGivenPatientid(String patientid){
+    return patientsCollection.where('patientid', isEqualTo: patientid).snapshots().map(
       (qs) => Patient.fromJson(qs.docs.last.data())
     );
   }
@@ -55,17 +54,22 @@ class PatientService{
   }
   
 
-  ///update
-   Future update(Map m, String id) async{
-    return patientsCollection.doc(id).set(m);
+  // ///update
+  //  Future update(Map m, String id) async{
+  //   return patientsCollection.doc(id).set(m);
+  // }
+
+   Future updateWherePatientid(Map m, String patientid){
+    var query = patientsCollection.where('patientid', isEqualTo: patientid);
+    return query.get().then((s) => s.docs.forEach((d) => d.reference.set(m)));
   }
 
   ///delete where
-  Future delete(String id) async {
-    var query = patientsCollection.where('id', isEqualTo: id);
+  Future delete(String patientid) async {
+    var query = patientsCollection.where('patientid', isEqualTo: patientid);
     return query.get().then((s) => 
     s.docs.forEach((d) => 
       d.reference.delete()
-    )).then((_) => CheckupService().deleteWherePatientID(id));
+    )).then((_) => CheckupService().deleteWherePatientID(patientid));
   }
 }

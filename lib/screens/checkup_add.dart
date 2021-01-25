@@ -5,8 +5,8 @@ import '../services/checkup_service.dart';
 import '../widgets/but.dart';
 
 class CheckupAdd extends StatefulWidget {
-  final String id;
-  CheckupAdd({@required this.id});
+  final String patientid;
+  CheckupAdd({@required this.patientid});
   @override
   _CheckupAddState createState() => _CheckupAddState();
 }
@@ -17,7 +17,7 @@ class _CheckupAddState extends State<CheckupAdd> {
   @override
   void initState(){
     super.initState();
-     check = Checkup(patientid: this.widget.id);
+     check = Checkup(patientid: this.widget.patientid);
   }
   final service = CheckupService();
   
@@ -33,8 +33,8 @@ class _CheckupAddState extends State<CheckupAdd> {
 
   Widget getField(int i, Map m){
     if(i < Checkup.numFields ){
-      if(i==0){return Text('uuid: ${check.uuid}');}
-      if(i==1){return Text('patientid: ${check.patientid}');}
+      if(i==0){return Text('${check.toMap.keys.elementAt(i)}: ${check.toMap.values.elementAt(i)}');}
+      if(i==1){return Text('${check.toMap.keys.elementAt(i)}: ${check.toMap.values.elementAt(i)}');}
 
       final value = m.values.elementAt(i);
       final key = m.keys.elementAt(i);

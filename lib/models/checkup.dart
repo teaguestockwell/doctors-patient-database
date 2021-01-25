@@ -3,7 +3,7 @@ import 'package:uuid/uuid.dart';
 
 class Checkup{
   String
-    uuid,
+    checkupid,
     patientid,
     doctor,
     datetime,
@@ -24,10 +24,10 @@ Checkup({
   this.weight = '',
   this.height = '',
   this.medicines = ''
-}): uuid = Uuid().v1();
+}): checkupid = Uuid().v1();
 
 Checkup.fromJson(Map<String, dynamic> json):
-  uuid = json['uuid'], 
+  checkupid = json['checkupid'], 
   patientid = json['patientid'] ?? '',
   doctor = json['doctor'] ?? '',
   datetime = json['datetime'] ?? '',
@@ -38,7 +38,7 @@ Checkup.fromJson(Map<String, dynamic> json):
   medicines = json['medicines'] ?? '';
 
   Map<String, String> get toMap => {
-    'uuid': uuid,
+    'checkupid': checkupid,
     'patientid': patientid ?? '',
     'doctor': doctor ?? '',
     'datetime': datetime ?? '',

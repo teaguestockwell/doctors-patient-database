@@ -20,23 +20,23 @@ final CollectionReference checkupCollection = FirebaseFirestore.instance.collect
   }
   
   ///read one
-  Stream<Checkup> getCheckupGivenUuid(String uuid){
-    return checkupCollection.where('uuid', isEqualTo: uuid).snapshots().map(
+  Stream<Checkup> getCheckupGivenCheckupid(String checkupid){
+    return checkupCollection.where('checkupid', isEqualTo: checkupid).snapshots().map(
       (qs) => Checkup.fromJson(qs.docs.last.data())
     );
   }
 
   ///read newest latest date at id
   // ignore: non_constant_identifier_names
-  Stream<Checkup> getLastCheckupGiven_id(String id){
+  Stream<Checkup> getLastCheckupGivenPatientId(String patientid){
     Query q = checkupCollection.orderBy('datetime', descending: true).limit(1);
     return q.snapshots()
     .map((ds) => Checkup.fromJson(ds.docs.elementAt(0).data()));
   }
 
   ///read many given
-  Stream<List<Checkup>> searchCheckupGivenPatientId(String id){
-  return checkupCollection.where('patientid', isEqualTo: id)
+  Stream<List<Checkup>> searchCheckupGivenPatientId(String patientid){
+  return checkupCollection.where('patientid', isEqualTo: patientid)
     .snapshots().map(_checkupListFromSnapshots);
   }
 
@@ -46,23 +46,26 @@ final CollectionReference checkupCollection = FirebaseFirestore.instance.collect
       .map(_checkupListFromSnapshots);
   }
 
-  ///update
-   Future update(Map m, String id) async{
-    return checkupCollection.doc(id).set(m);
+  // ///update
+  //  Future update(Map m, String id) async{
+  //   return checkupCollection.doc(id).set(m);
+  // }
+
+  ///update all where uuid
+  Future updateWhereCheckupid(Map m, String checkupid){
+    var query = checkupCollection.where('checkupid', isEqualTo: checkupid);
+    return query.get().then((s) => s.docs.forEach((d) => d.reference.set(m)));
   }
 
-  ///delete where
-  Future deleteWhereUuid(String uuid) async {
-    var query = checkupCollection.where('uuid', isEqualTo: uuid);
-    return query.get().then((s) => 
-    s.docs.forEach((d) => 
-      d.reference.delete()
-    ));
+  ///delete all where
+  Future deleteWhereCheckupid(String checkupid) async {
+    var query = checkupCollection.where('checkupid', isEqualTo: checkupid);
+    return query.get().then((s) => s.docs.forEach((d) => d.reference.delete()));
   }
 
   ///delete where
   Future deleteWherePatientID(String patientid) async {
-    var query = checkupCollection.where('id', isEqualTo: patientid);
+    var query = checkupCollection.where('patientid', isEqualTo: patientid);
     return query.get().then((s) => 
     s.docs.forEach((d) => 
       d.reference.delete()
@@ -70,3 +73,8 @@ final CollectionReference checkupCollection = FirebaseFirestore.instance.collect
   }
 
 }
+
+//to do remove ablity to make own patient id
+//rename patientid to patientuuid
+//rename id to uuid
+//orgramize crud

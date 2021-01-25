@@ -73,7 +73,7 @@ class _ProfileListState extends State<ProfileList> {
      Navigator.push(
     context,
     MaterialPageRoute(
-      builder: (_) => ProfileHome(id: id)
+      builder: (_) => ProfileHome(patientid: id)
     ));
   }
 
@@ -88,7 +88,7 @@ class _ProfileListState extends State<ProfileList> {
         return Center(
           child: But(
             text: getPatientButtonText(patients[i]),
-            onpress: () => profileHome(patients[i].id),
+            onpress: () => profileHome(patients[i].patientid),
           )
         );
       },

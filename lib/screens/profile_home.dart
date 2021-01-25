@@ -9,8 +9,8 @@ import '../widgets/home_info.dart';
 import 'profile_edit.dart';
 
 class ProfileHome extends StatefulWidget {
-  final String id;
-  ProfileHome({@required this.id});
+  final String patientid;
+  ProfileHome({@required this.patientid});
   @override
   _ProfileHomeState createState() => _ProfileHomeState();
 }
@@ -21,14 +21,14 @@ class _ProfileHomeState extends State<ProfileHome> {
   @override
     void initState() {
       super.initState();
-      value = PatientService().getPatient(this.widget.id);
+      value = PatientService().getPatientGivenPatientid(this.widget.patientid);
     }
 
     void updateProfile(){
       Navigator.push(
       context,
       MaterialPageRoute(
-      builder: (_) => ProfileEdit(id: this.widget.id)
+      builder: (_) => ProfileEdit(patientid: this.widget.patientid)
       ));
     }
 
@@ -36,7 +36,7 @@ class _ProfileHomeState extends State<ProfileHome> {
        Navigator.push(
       context,
       MaterialPageRoute(
-      builder: (context) => CheckupHome(id: this.widget.id,)
+      builder: (context) => CheckupHome(patientid: this.widget.patientid,)
       ));
     }
 
@@ -49,8 +49,8 @@ class _ProfileHomeState extends State<ProfileHome> {
         body: ListView(
           shrinkWrap: true,
           children: [
-          HomeProvider(this.widget.id),
-          LastCheckupParaProvider(id: this.widget.id),
+          HomeProvider(this.widget.patientid),
+          LastCheckupParaProvider(patientid: this.widget.patientid),
           Center(child: But(text: 'Update Profile', onpress: updateProfile)),
           Center(child: But(text: 'Checkups', onpress: checkups))
         ])

@@ -11,8 +11,8 @@ import 'checkup_add.dart';
 import 'checkup_edit.dart';
 
 class CheckupHome extends StatefulWidget {
-  final String id;
-  CheckupHome({@required this.id});
+  final String patientid;
+  CheckupHome({@required this.patientid});
   @override
   _CheckupHomeState createState() => _CheckupHomeState();
 }
@@ -23,14 +23,14 @@ class _CheckupHomeState extends State<CheckupHome> {
   @override
     void initState() {
       super.initState();
-      value = CheckupService().searchCheckupGivenPatientId(this.widget.id);
+      value = CheckupService().searchCheckupGivenPatientId(this.widget.patientid);
     }
 
     void addCheckup(){
       Navigator.push(
       context,
       MaterialPageRoute(
-      builder: (_) => CheckupAdd(id: this.widget.id)
+      builder: (_) => CheckupAdd(patientid: this.widget.patientid)
     ));
     }
 
@@ -45,8 +45,8 @@ class _CheckupHomeState extends State<CheckupHome> {
           child: ListView(
             shrinkWrap: true,
             children: [
-              HomeProvider(this.widget.id),
-              LastCheckupParaProvider(id: this.widget.id),
+              HomeProvider(this.widget.patientid),
+              LastCheckupParaProvider(patientid: this.widget.patientid),
               Center(child: But(text: 'Add Checkup', onpress: addCheckup)),
               CheckupList(),
             ]
@@ -68,7 +68,7 @@ class _CheckupListState extends State<CheckupList> {
     Navigator.push(
     context,
     MaterialPageRoute(
-      builder: (_) => CheckupEdit(uuid: uuid)
+      builder: (_) => CheckupEdit(checkupid: uuid)
     ));
   }
 
@@ -84,7 +84,7 @@ class _CheckupListState extends State<CheckupList> {
         return Center(
           child: But(
             text: getChecupButtonText(checkups[i]),
-            onpress: () => checkupEdit(checkups[i].uuid),
+            onpress: () => checkupEdit(checkups[i].checkupid),
           )
         );
       },

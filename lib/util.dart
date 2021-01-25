@@ -69,7 +69,7 @@ String getAge(String dob){
 
 String getPatientButtonText(Patient p){
   String age = getAge(p.dob);
-  return 'name: ${p.name}\ngender: ${p.gender}\nage: ${age}\nid: ${p.id}';
+  return 'name: ${p.name}\ngender: ${p.gender}\nage: ${age}\nssn: ${p.ssn}';
 }
 
 String getChecupButtonText(Checkup c){

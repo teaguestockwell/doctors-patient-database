@@ -5,8 +5,8 @@ import '../services/patient_service.dart';
 
 
 class HomeProvider extends StatefulWidget {
-  final String id;
-  HomeProvider(this.id);
+  final String patientid;
+  HomeProvider(this.patientid);
   @override
   _HomeProviderState createState() => _HomeProviderState();
 }
@@ -17,7 +17,7 @@ class _HomeProviderState extends State<HomeProvider> {
   @override
   void initState(){
     super.initState();
-    value = PatientService().getPatient(this.widget.id);
+    value = PatientService().getPatientGivenPatientid(this.widget.patientid);
   }
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class HomeInfo extends StatelessWidget {
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (_,i)
-          => Text('${Patient().toMap.keys.elementAt(i)}: ${pat.toMap.values.elementAt(i)}')
+          => Text('${pat.toMap.keys.elementAt(i)}: ${pat.toMap.values.elementAt(i)}')
       ),
     );
   }

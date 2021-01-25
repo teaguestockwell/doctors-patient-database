@@ -14,24 +14,13 @@ class _ProfileAddState extends State<ProfileAdd> {
   Patient pat = Patient();
   final service = PatientService();
   
-  void save ()async {
-    if(pat.id != '' && await service.isUniqueId(pat.id)){
-      service.create(pat.toMap).then((_){
-        Navigator.pop(context);
-      });
-    }else{
-      showSnack();
-    }
+  void save(){
+    service.create(pat.toMap).then((_){
+      Navigator.pop(context);
+    });
   }
+  
 
-  void showSnack(){
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Container(
-        height: Snackz.y, 
-        child: Center(
-          child: Text('Please use unique id',style: Snackz.ts,
-    )))));
-  }
 
    void onChanged(String k, String v){
     pat = Patient.fromJson(pat.toMap..[k]=v);
@@ -39,6 +28,8 @@ class _ProfileAddState extends State<ProfileAdd> {
 
   Widget getField(int i, Map m){
     if(i < Patient.numFields){
+      if(i==0){return Text('${pat.toMap.keys.elementAt(i)}: ${pat.toMap.values.elementAt(i)}');}
+
       final value = m.values.elementAt(i);
       final key = m.keys.elementAt(i);
       return TextField(

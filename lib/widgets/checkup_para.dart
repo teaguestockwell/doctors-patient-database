@@ -4,8 +4,8 @@ import '../models/checkup.dart';
 import '../services/checkup_service.dart';
 
 class LastCheckupParaProvider extends StatefulWidget {
-  final String id;
-  LastCheckupParaProvider({@required this.id});
+  final String patientid;
+  LastCheckupParaProvider({@required this.patientid});
   @override
   _LastCheckupParaProviderState createState() => _LastCheckupParaProviderState();
 }
@@ -15,11 +15,12 @@ class _LastCheckupParaProviderState extends State<LastCheckupParaProvider> {
   
   initState(){
     super.initState();
-    value = CheckupService().getLastCheckupGiven_id(this.widget.id);
+    value = CheckupService().getLastCheckupGivenPatientId(this.widget.patientid);
   }
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<Checkup>.value(
+    return 
+    StreamProvider<Checkup>.value(
       value: value,
       child: LastCheckupBody()
     );
@@ -38,7 +39,8 @@ class LastCheckupBody extends StatelessWidget {
         shrinkWrap: true,
         itemCount: Checkup.numFields,
         itemBuilder: (_,i) =>
-Text('${Checkup().toMap.keys.elementAt(i)}:  ${checkup.toMap.values.elementAt(i)}')
+Text('${checkup.toMap.keys.elementAt(i)}: ${checkup.toMap.values.elementAt(i)}')
+     
       ),
     );
   }

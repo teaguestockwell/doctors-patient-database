@@ -1,14 +1,12 @@
-import 'package:doctors_patient_database/models/checkup.dart';
-import 'package:doctors_patient_database/models/patient.dart';
-import 'package:doctors_patient_database/screens/checkup_home.dart';
-import 'package:doctors_patient_database/services/checkup_service.dart';
-import 'package:doctors_patient_database/widgets/but.dart';
-import 'package:doctors_patient_database/widgets/checkup_para.dart';
-import 'package:doctors_patient_database/widgets/home_info.dart';
-import 'profile_edit.dart';
-import 'package:doctors_patient_database/services/patient_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../models/patient.dart';
+import '../screens/checkup_home.dart';
+import '../services/patient_service.dart';
+import '../widgets/but.dart';
+import '../widgets/checkup_para.dart';
+import '../widgets/home_info.dart';
+import 'profile_edit.dart';
 
 class ProfileHome extends StatefulWidget {
   final String id;

@@ -36,24 +36,47 @@ class PatientService{
       .snapshots().map(_patientListFromSnapshots);
   }
 
-  ///create update
-   Future createOrUpdate(Map m, String id) async{
+  ///update
+   Future update(Map m, String id) async{
     return patientsCollection.doc(id).set(m);
   }
 
-  ///read
+   ///create
+   Future create(Map m) async{
+    return patientsCollection.doc().set(m);
+  }
+
+  /// return of > 0 is a nonunique id
+  Future<bool> isUniqueId(String id) async {
+    QuerySnapshot rs = await patientsCollection.where('id', isEqualTo: id).get();
+    bool ret = rs.docs.isEmpty; print(ret);
+    return ret;
+  }
+
+  // ///read
+  // Stream<Patient> getPatient(String id){
+  //   return patientsCollection.doc(id).snapshots().map(
+  //     (ds) => Patient.fromJson(ds.data())
+  //   );
+  // }
+
+   ///read
   Stream<Patient> getPatient(String id){
-    return patientsCollection.doc(id).snapshots().map(
-      (ds) => Patient.fromJson(ds.data())
+    return patientsCollection.where('id', isEqualTo: id).snapshots().map(
+      (qs) => Patient.fromJson(qs.docs.last.data())
     );
-  }
 
-  ///delete
-  Future delete(String id){
-    return patientsCollection.doc(id).delete();
   }
-
+  
+  Future delete(String id) async {
+    var query = patientsCollection.where('id', isEqualTo: id);
+    return query.get().then((s) => 
+    s.docs.forEach((d) => 
+      d.reference.delete()
+    ));
+  }
 }
+
 
 
 

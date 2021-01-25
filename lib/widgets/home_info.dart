@@ -1,8 +1,7 @@
-import 'package:doctors_patient_database/models/patient.dart';
-import 'package:doctors_patient_database/screens/checkup_home.dart';
-import 'package:doctors_patient_database/services/patient_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../models/patient.dart';
+import '../services/patient_service.dart';
 
 
 class HomeProvider extends StatefulWidget {

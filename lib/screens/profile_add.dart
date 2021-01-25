@@ -1,7 +1,9 @@
-import 'package:doctors_patient_database/models/patient.dart';
-import 'package:doctors_patient_database/services/patient_service.dart';
-import 'package:doctors_patient_database/widgets/but.dart';
 import 'package:flutter/material.dart';
+
+import '../constant.dart';
+import '../models/patient.dart';
+import '../services/patient_service.dart';
+import '../widgets/but.dart';
 
 class ProfileAdd extends StatefulWidget {
   @override
@@ -12,11 +14,23 @@ class _ProfileAddState extends State<ProfileAdd> {
   Patient pat = Patient();
   final service = PatientService();
   
-  void save(){
-    service.createOrUpdate(pat.toMap, pat.id).then((_){
-       // navigate back a screen here
-       Navigator.pop(context);
-    });
+  void save ()async {
+    if(pat.id != '' && await service.isUniqueId(pat.id)){
+      service.create(pat.toMap).then((_){
+        Navigator.pop(context);
+      });
+    }else{
+      showSnack();
+    }
+  }
+
+  void showSnack(){
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Container(
+        height: Snackz.y, 
+        child: Center(
+          child: Text('Please use unique id',style: Snackz.ts,
+    )))));
   }
 
    void onChanged(String k, String v){

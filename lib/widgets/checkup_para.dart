@@ -1,7 +1,7 @@
-import 'package:doctors_patient_database/models/checkup.dart';
-import 'package:doctors_patient_database/services/checkup_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../models/checkup.dart';
+import '../services/checkup_service.dart';
 
 class LastCheckupParaProvider extends StatefulWidget {
   final String id;

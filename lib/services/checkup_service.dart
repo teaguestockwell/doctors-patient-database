@@ -34,20 +34,40 @@ final CollectionReference checkupCollection = FirebaseFirestore.instance.collect
 
 
   ///create update
-   Future createOrUpdate(Map m, String id) async{
+   Future update(Map m, String id) async{
     return checkupCollection.doc(id).set(m);
   }
 
+  ///create update
+   Future create(Map m) async{
+    return checkupCollection.doc().set(m);
+  }
+
   ///read
-  Stream<Checkup> getPatient(String id){
-    return checkupCollection.doc(id).snapshots().map(
-      (ds) => Checkup.fromJson(ds.data())
+  // Stream<Checkup> getCheckup(String id){
+  //   return checkupCollection.doc(id).snapshots().map(
+  //     (ds) => Checkup.fromJson(ds.data())
+  //   );
+  // }
+
+    Stream<Checkup> getCheckup(String id){
+    return checkupCollection.where('id', isEqualTo: id).snapshots().map(
+      (qs) => Checkup.fromJson(qs.docs.last.data())
     );
+
   }
 
   ///delete
-  Future delete(String id){
-    return checkupCollection.doc(id).delete();
+  // Future delete(String id){
+  //   return checkupCollection.doc(id).delete();
+  // }
+
+  Future delete(String id) async {
+    var query = checkupCollection.where('id', isEqualTo: id);
+    return query.get().then((s) => 
+    s.docs.forEach((d) => 
+      d.reference.delete()
+    ));
   }
 
   ///get latest checkup

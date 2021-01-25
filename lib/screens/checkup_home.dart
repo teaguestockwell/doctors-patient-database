@@ -1,11 +1,14 @@
-import 'package:doctors_patient_database/models/checkup.dart';
-import 'package:doctors_patient_database/services/checkup_service.dart';
-import 'package:doctors_patient_database/util.dart';
-import 'package:doctors_patient_database/widgets/but.dart';
-import 'package:doctors_patient_database/widgets/checkup_para.dart';
-import 'package:doctors_patient_database/widgets/home_info.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../models/checkup.dart';
+import '../services/checkup_service.dart';
+import '../util.dart';
+import '../widgets/but.dart';
+import '../widgets/checkup_para.dart';
+import '../widgets/home_info.dart';
+import 'checkup_add.dart';
+import 'checkup_edit.dart';
 
 class CheckupHome extends StatefulWidget {
   final String id;
@@ -24,13 +27,12 @@ class _CheckupHomeState extends State<CheckupHome> {
     }
 
     void addCheckup(){
-
+      Navigator.push(
+      context,
+      MaterialPageRoute(
+      builder: (_) => CheckupAdd(id: this.widget.id)
+    ));
     }
-
-    void updateCheckup(){
-
-    }
-
 
   @override
  Widget build(BuildContext context) {
@@ -63,11 +65,11 @@ class CheckupList extends StatefulWidget {
 class _CheckupListState extends State<CheckupList> {
 
   void checkupEdit(String id){
-    // Navigator.push(
-    // context,
-    // MaterialPageRoute(
-    //   builder: (_) => CheckupEdit(id: id)
-    // ));
+    Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (_) => CheckupEdit(id: id)
+    ));
   }
 
   @override

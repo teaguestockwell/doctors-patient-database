@@ -1,11 +1,11 @@
-import 'package:doctors_patient_database/screens/profile_add.dart';
-import 'package:doctors_patient_database/screens/profile_home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/patient.dart';
 import '../services/patient_service.dart';
 import '../util.dart';
 import '../widgets/but.dart';
+import 'profile_add.dart';
+import 'profile_home.dart';
 
 class ProfileSearch extends StatefulWidget {
 

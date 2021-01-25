@@ -29,9 +29,9 @@ final CollectionReference checkupCollection = FirebaseFirestore.instance.collect
   ///read newest latest date at id
   // ignore: non_constant_identifier_names
   Stream<Checkup> getLastCheckupGivenPatientId(String patientid){
-    Query q = checkupCollection.orderBy('datetime', descending: true).limit(1);
-    return q.snapshots()
-    .map((ds) => Checkup.fromJson(ds.docs.elementAt(0).data()));
+    return checkupCollection.where('patientid', isEqualTo: patientid)
+    .limit(1).snapshots().map((qs) => Checkup.fromJson(qs.docs.last.data())
+    );
   }
 
   ///read many given

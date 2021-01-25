@@ -6,34 +6,14 @@ import 'models/patient.dart';
 String getDateTime(String dt){
   var ret = dt.trim();
   if(ret.length == 12){
-    var year = ret.substring(0,3);
-    var month = ret.substring(4,5);
-    var day = ret.substring(6,7);
-    var hh = ret.substring(8,9);
-    var mm = ret.substring(10,11);
+    var year = ret.substring(0,4);
+    var month = ret.substring(4,6);
+    var day = ret.substring(6,8);
+    var hh = ret.substring(8,10);
+    var mm = ret.substring(10,12);
     return '${year}-${month}-${day} ${hh}:${mm}';
   }
   return 'Invalid Date';
-}
-
-String getdt(String dt){
-  dt = dt.trim();
-  if(dt.length == 12){
-    try{
-      final d = DateTime(
-        int.parse(dt.substring(0,4)),//year
-        int.parse(dt.substring(5,6)),//month
-        int.parse(dt.substring(7,8)),//day
-        int.parse(dt.substring(9,10)),//hh
-        int.parse(dt.substring(11,12)),//mm
-      );
-      final df = DateFormat('yyyy MM dd HH:mm');
-      return df.format(d);
-    } 
-    // ignore: avoid_catches_without_on_clauses
-    catch(_){return 'Invalid DateTime';}
-  }
-  return 'Invald DateTime';
 }
 
 String getAge(String dob){
@@ -73,7 +53,7 @@ String getPatientButtonText(Patient p){
 }
 
 String getChecupButtonText(Checkup c){
-  String dt = getdt(c.datetime);
+  String dt = getDateTime(c.datetime);
   return '${dt}\ndoctor: ${c.doctor}';
 }
 

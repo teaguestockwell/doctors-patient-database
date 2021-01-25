@@ -3,7 +3,7 @@ import '../models/checkup.dart';
 
 class CheckupService{
 
-final CollectionReference checkupCollection = FirebaseFirestore.instance.collection('patients');
+final CollectionReference checkupCollection = FirebaseFirestore.instance.collection('checkups');
 
  ///checkup list from snapshot
   List<Checkup> _checkupListFromSnapshots(QuerySnapshot snapshot) {
@@ -23,10 +23,15 @@ final CollectionReference checkupCollection = FirebaseFirestore.instance.collect
 
   ///search checkup with patien id
   // ignore: non_constant_identifier_names
-  Stream<List<Checkup>> searchCheckupGiven_patientid(String patientid){
-  return checkupCollection.where('patientid', isEqualTo: patientid)
+  Stream<List<Checkup>> searchCheckupGiven_id(String id){
+  return checkupCollection.where('id', isEqualTo: id)
     .snapshots().map(_checkupListFromSnapshots);
   }
+
+
+  
+
+
 
   ///create update
    Future createOrUpdate(Map m, String id) async{
@@ -47,9 +52,10 @@ final CollectionReference checkupCollection = FirebaseFirestore.instance.collect
 
   ///get latest checkup
   // ignore: non_constant_identifier_names
-  Stream<Checkup> getLastCheckupGiven_patientid(String patientid){
+  Stream<Checkup> getLastCheckupGiven_id(String id){
     Query q = checkupCollection.orderBy('datetime', descending: true).limit(1);
-    return q.snapshots().map((ds) => Checkup.fromJson(ds.docs.elementAt(0).data()));
+    return q.snapshots()
+    .map((ds) => Checkup.fromJson(ds.docs.elementAt(0).data()));
   }
 
 

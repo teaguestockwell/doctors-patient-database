@@ -15,7 +15,7 @@ void main() async {
       title: 'Flutter Demo',
       theme: theme,
       home: ProfileSearch()
-      //home: LastCheckup(patientid:'234567890')
+      //home: LastCheckup(id:'234567890')
     )
   );
 }

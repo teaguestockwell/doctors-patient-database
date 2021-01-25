@@ -1,6 +1,6 @@
 class Checkup{
   String
-    patientid,
+    id,
     doctor,
     datetime,
     systolicbp,
@@ -12,7 +12,7 @@ class Checkup{
 static final numFields = 8;
 
 Checkup({
-  this.patientid = '',
+  this.id = '',
   this.doctor = '',
   this.datetime = '',
   this.systolicbp = '',
@@ -23,17 +23,17 @@ Checkup({
 });
 
 Checkup.fromJson(Map<String, dynamic> json):
-   patientid = json['patientid'] ?? '',
-  doctor = json[''] ?? '',
-  datetime = json[''] ?? '',
-  systolicbp = json[''] ?? '',
-  heartrate = json[''] ?? '',
-  weight = json[''] ?? '',
-  height = json[''] ?? '',
-  medicines = json[''] ?? '';
+  id = json['id'] ?? '',
+  doctor = json['doctor'] ?? '',
+  datetime = json['datetime'] ?? '',
+  systolicbp = json['systolicbp'] ?? '',
+  heartrate = json['heartrate'] ?? '',
+  weight = json['weight'] ?? '',
+  height = json['height'] ?? '',
+  medicines = json['medicines'] ?? '';
 
   Map<String, String> get toMap => {
-    'patientid': patientid ?? '',
+    'id': id ?? '',
     'doctor': doctor ?? '',
     'datetime': datetime ?? '',
     'systolicbp': systolicbp ?? '',

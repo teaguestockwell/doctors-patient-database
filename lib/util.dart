@@ -46,13 +46,14 @@ String getPatientButtonText(Patient p){
   if(p.name != null && p.gender != null && p.dob !=null){
     if(getAge(p.dob) != 'Invalid Age'){
       var age = getAge(p.dob);
-      return '${p.name}, ${p.gender}, ${age}';
+      return 
+      '''name: ${p.name}\ngender: ${p.gender}\nage: ${age}''';
     }
   }
   return 'Invalid Patient';
 }
 
 String getChecupButtonText(Checkup c){
-  return 'datetime: ${c.datetime}, Doc: ${c.doctor}';
+  return 'yyyymmddhhmm: ${c.datetime}\ndoctor: ${c.doctor}';
 }
 

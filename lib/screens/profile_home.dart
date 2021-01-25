@@ -3,6 +3,7 @@ import 'package:doctors_patient_database/models/patient.dart';
 import 'package:doctors_patient_database/screens/checkup_home.dart';
 import 'package:doctors_patient_database/services/checkup_service.dart';
 import 'package:doctors_patient_database/widgets/but.dart';
+import 'package:doctors_patient_database/widgets/checkup_para.dart';
 import 'package:doctors_patient_database/widgets/home_info.dart';
 import 'profile_edit.dart';
 import 'package:doctors_patient_database/services/patient_service.dart';
@@ -37,7 +38,7 @@ class _ProfileHomeState extends State<ProfileHome> {
        Navigator.push(
       context,
       MaterialPageRoute(
-      builder: (context) => CheckupHome(patientid: this.widget.id,)
+      builder: (context) => CheckupHome(id: this.widget.id,)
       ));
     }
 
@@ -50,16 +51,9 @@ class _ProfileHomeState extends State<ProfileHome> {
         body: ListView(
           shrinkWrap: true,
           children: [
-
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: HomeInfo(),
-          ),
-
-          // LastCheckup(),
-
+          HomeProvider(this.widget.id),
+          LastCheckupParaProvider(id: this.widget.id),
           Center(child: But(text: 'Update Profile', onpress: updateProfile)),
-
           Center(child: But(text: 'Checkups', onpress: checkups))
         ])
       )
@@ -69,39 +63,3 @@ class _ProfileHomeState extends State<ProfileHome> {
 
 
 
-class LastCheckup extends StatefulWidget {
-  final String patientid;
-  LastCheckup({@required this.patientid});
-  @override
-  _LastCheckupState createState() => _LastCheckupState();
-}
-
-class _LastCheckupState extends State<LastCheckup> {
-  var value;
-  
-  initState(){
-    super.initState();
-    value = CheckupService().getLastCheckupGiven_patientid(this.widget.patientid);
-  }
-  @override
-  Widget build(BuildContext context) {
-    return StreamProvider<Checkup>.value(
-      value: value,
-      child: LastCheckupBody()
-    );
-  }
-}
-
-class LastCheckupBody extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final checkup = Provider.of<Checkup>(context) ?? Checkup();
-
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: Checkup.numFields,
-      itemBuilder: (_,i) =>
-Text('${checkup.toMap.keys.elementAt(i)}:  ${checkup.toMap.values.elementAt(i)}')
-    );
-  }
-}

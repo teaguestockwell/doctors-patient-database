@@ -100,7 +100,7 @@ class _PatientFeildsState extends State<PatientFeilds> {
       child:
       ListView.builder(
       shrinkWrap: true,
-      itemCount: Patient.numFields+1,
+      itemCount: Patient.numFields+2,
       itemBuilder: (_,i) {
         return getFeild(i, (patient as Patient).toMap);
       }

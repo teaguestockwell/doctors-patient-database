@@ -1,6 +1,9 @@
 import 'package:doctors_patient_database/models/checkup.dart';
 import 'package:doctors_patient_database/models/patient.dart';
+import 'package:doctors_patient_database/screens/checkup_home.dart';
 import 'package:doctors_patient_database/services/checkup_service.dart';
+import 'package:doctors_patient_database/widgets/but.dart';
+import 'package:doctors_patient_database/widgets/home_info.dart';
 import 'profile_edit.dart';
 import 'package:doctors_patient_database/services/patient_service.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +25,22 @@ class _ProfileHomeState extends State<ProfileHome> {
       value = PatientService().getPatient(this.widget.id);
     }
 
+    void updateProfile(){
+      Navigator.push(
+      context,
+      MaterialPageRoute(
+      builder: (_) => ProfileEdit(id: this.widget.id)
+      ));
+    }
+
+    void checkups(){
+       Navigator.push(
+      context,
+      MaterialPageRoute(
+      builder: (context) => CheckupHome(patientid: this.widget.id,)
+      ));
+    }
+
   @override
   Widget build(BuildContext context) {
    return StreamProvider<Patient>.value(
@@ -31,27 +50,24 @@ class _ProfileHomeState extends State<ProfileHome> {
         body: ListView(
           shrinkWrap: true,
           children: [
-          HomeInfo(),
-          LastCheckup(),
+
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: HomeInfo(),
+          ),
+
+          // LastCheckup(),
+
+          Center(child: But(text: 'Update Profile', onpress: updateProfile)),
+
+          Center(child: But(text: 'Checkups', onpress: checkups))
         ])
       )
     );
   }
 }
 
-class HomeInfo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final pat = Provider.of<Patient>(context) ?? Patient();
-    return ListView.builder(
-      itemCount: Patient.numFields,
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemBuilder: (_,i)
-        => Text('${Patient().toMap.keys.elementAt(i)}: ${pat.toMap.values.elementAt(i)}')
-    );
-  }
-}
+
 
 class LastCheckup extends StatefulWidget {
   final String patientid;

@@ -14,8 +14,8 @@ void main() async {
     MaterialApp(
       title: 'Flutter Demo',
       theme: theme,
-      //home: ProfileSearch()
-      home: LastCheckup(patientid:'234567890')
+      home: ProfileSearch()
+      //home: LastCheckup(patientid:'234567890')
     )
   );
 }

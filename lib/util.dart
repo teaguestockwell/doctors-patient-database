@@ -1,4 +1,5 @@
 
+import 'models/checkup.dart';
 import 'models/patient.dart';
 
 String getDateTime(int dt){
@@ -49,5 +50,9 @@ String getPatientButtonText(Patient p){
     }
   }
   return 'Invalid Patient';
+}
+
+String getChecupButtonText(Checkup c){
+  return 'datetime: ${c.datetime}, Doc: ${c.doctor}';
 }
 

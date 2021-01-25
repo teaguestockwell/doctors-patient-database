@@ -45,19 +45,13 @@ final CollectionReference checkupCollection = FirebaseFirestore.instance.collect
     return checkupCollection.doc(id).delete();
   }
 
-
   ///get latest checkup
   // ignore: non_constant_identifier_names
   Stream<Checkup> getLastCheckupGiven_patientid(String patientid){
-    return checkupCollection.where('patientid', isEqualTo: patientid)
-    .orderBy('patientid').limitToLast(1).snapshots().
-    map(_checkupFromSnapshot);
+    Query q = checkupCollection.orderBy('datetime', descending: true).limit(1);
+    return q.snapshots().map((ds) => Checkup.fromJson(ds.docs.elementAt(0).data()));
   }
 
-  ///the latest checkup
-  Checkup _checkupFromSnapshot(QuerySnapshot qs){
-    return qs.docs.map((doc) => Checkup.fromJson(doc.data())).last;
-  }
 
 
 }

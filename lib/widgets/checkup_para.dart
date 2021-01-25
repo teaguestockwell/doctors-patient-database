@@ -30,17 +30,21 @@ class _LastCheckupParaProviderState extends State<LastCheckupParaProvider> {
 class LastCheckupBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final checkup = Provider.of<Checkup>(context) ?? Checkup();
+    final checkup = Provider.of<Checkup>(context) ?? Checkup.empty();
 
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: ListView.builder(
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
-        itemCount: Checkup.numFields,
-        itemBuilder: (_,i) =>
-Text('${checkup.toMap.keys.elementAt(i)}: ${checkup.toMap.values.elementAt(i)}')
-     
+        itemCount: Checkup.numFields+1,
+        itemBuilder: (_,i){
+
+if(i==0){return Text('Last Checkup:');}
+return Text('${checkup.toMap.keys.elementAt(i-1)}: ${checkup.toMap.values.elementAt(i-1)}');
+
+
+        }
       ),
     );
   }

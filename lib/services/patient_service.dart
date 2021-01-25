@@ -35,9 +35,9 @@ class PatientService{
   }
 
   ///read many lazy matching
-  Stream<List<Patient>> searchPatientName(String name){
-    return patientsCollection.where('name', isGreaterThanOrEqualTo: name)
-      .where('name', isLessThanOrEqualTo: name+ '\uf8ff')
+  Stream<List<Patient>> searchPatientName(String k, String v){
+    return patientsCollection.where(k, isGreaterThanOrEqualTo: v)
+      .where(k, isLessThanOrEqualTo: v+ '\uf8ff')
       .snapshots().map(_patientListFromSnapshots);
   }
 

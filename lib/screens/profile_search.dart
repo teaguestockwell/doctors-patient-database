@@ -14,10 +14,22 @@ class ProfileSearch extends StatefulWidget {
 }
 
 class _ProfileSearchState extends State<ProfileSearch> {
-  var value = PatientService().searchPatientName('');
+  var value = PatientService().searchPatientName('patientid','');
+  var k = TextEditingController(text: 'patientid');
+  var v = TextEditingController(text: '');
 
-   void onSearch(String name){
-    setState((){value = PatientService().searchPatientName(name);});
+  @override
+  void dispose(){
+    k.dispose();
+    v.dispose();
+    super.dispose();
+  }
+
+   void onSearch(_){
+     String kk;
+     // do not give api empty key, instead pass name
+     if(k.text != ''){kk =k.text;}else{kk ='patientid';}
+    setState((){value = PatientService().searchPatientName(kk,v.text);});
   }
 
   void profileAdd(){
@@ -44,9 +56,21 @@ class _ProfileSearchState extends State<ProfileSearch> {
               Padding(
                 padding: const EdgeInsets.only(top:10),
                 child: TextField(
+                  controller: k,
                   onChanged: onSearch,
                   decoration: InputDecoration(
-                    labelText: 'Full Name Search: Case Sensative'
+                    labelText: 'Search Key: Case Sensative'
+                  )
+                 )
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(top:10),
+                child: TextField(
+                  onChanged: onSearch,
+                  controller: v,
+                  decoration: InputDecoration(
+                    labelText: 'Search Value: Case Sensative'
                   )
                  )
               ),

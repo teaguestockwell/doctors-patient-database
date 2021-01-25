@@ -26,6 +26,18 @@ Checkup({
   this.medicines = ''
 }): checkupid = Uuid().v1();
 
+Checkup.empty({
+  this.checkupid = '',
+  this.patientid = '',
+  this.doctor = '',
+  this.datetime = '',
+  this.systolicbp = '',
+  this.heartrate = '',
+  this.weight = '',
+  this.height = '',
+  this.medicines = ''
+}); 
+
 Checkup.fromJson(Map<String, dynamic> json):
   checkupid = json['checkupid'], 
   patientid = json['patientid'] ?? '',

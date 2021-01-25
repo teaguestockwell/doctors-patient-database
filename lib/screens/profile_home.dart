@@ -1,4 +1,6 @@
+import 'package:doctors_patient_database/models/checkup.dart';
 import 'package:doctors_patient_database/models/patient.dart';
+import 'package:doctors_patient_database/services/checkup_service.dart';
 import 'profile_edit.dart';
 import 'package:doctors_patient_database/services/patient_service.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +32,7 @@ class _ProfileHomeState extends State<ProfileHome> {
           shrinkWrap: true,
           children: [
           HomeInfo(),
-          //LastCheckup(),
+          LastCheckup(),
         ])
       )
     );
@@ -47,6 +49,43 @@ class HomeInfo extends StatelessWidget {
       shrinkWrap: true,
       itemBuilder: (_,i)
         => Text('${Patient().toMap.keys.elementAt(i)}: ${pat.toMap.values.elementAt(i)}')
+    );
+  }
+}
+
+class LastCheckup extends StatefulWidget {
+  final String patientid;
+  LastCheckup({@required this.patientid});
+  @override
+  _LastCheckupState createState() => _LastCheckupState();
+}
+
+class _LastCheckupState extends State<LastCheckup> {
+  var value;
+  
+  initState(){
+    super.initState();
+    value = CheckupService().getLastCheckupGiven_patientid(this.widget.patientid);
+  }
+  @override
+  Widget build(BuildContext context) {
+    return StreamProvider<Checkup>.value(
+      value: value,
+      child: LastCheckupBody()
+    );
+  }
+}
+
+class LastCheckupBody extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final checkup = Provider.of<Checkup>(context) ?? Checkup();
+
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: Checkup.numFields,
+      itemBuilder: (_,i) =>
+Text('${checkup.toMap.keys.elementAt(i)}:  ${checkup.toMap.values.elementAt(i)}')
     );
   }
 }

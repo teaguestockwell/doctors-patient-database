@@ -44,11 +44,7 @@ class Patient{
     phone = json['phone'] ?? '',
     email = json['email'] ?? '',
     doctor = json['doctor'] ?? '',
-    insurance = json['insurance'] ?? ''
-    { 
-      this.toString();
-    }
-
+    insurance = json['insurance'] ?? '';
 
   Map<String,String> get toMap => {
     'id': id ?? '',

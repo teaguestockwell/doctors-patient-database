@@ -1,4 +1,5 @@
 import 'package:doctors_patient_database/screens/profile_edit.dart';
+import 'package:doctors_patient_database/screens/profile_home.dart';
 import 'package:doctors_patient_database/screens/profile_search.dart';
 
 import 'screens/profile_add.dart';
@@ -13,8 +14,10 @@ void main() async {
     MaterialApp(
       title: 'Flutter Demo',
       theme: theme,
-      home: ProfileSearch()
+      //home: ProfileSearch()
+      home: LastCheckup(patientid:'234567890')
     )
   );
 }
+
 

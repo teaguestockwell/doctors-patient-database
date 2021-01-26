@@ -52,8 +52,8 @@ class _ProfileHomeState extends State<ProfileHome> {
             shrinkWrap: true,
             children: [
             HomeProvider(this.widget.patientid),
-            PastTripsView(this.widget.patientid),
-            //LastCheckupParaProvider(patientid: this.widget.patientid),
+            //PastTripsView(this.widget.patientid),
+            CheckupParaProvider(this.widget.patientid),
             Center(child: But(text: 'Update Profile', onpress: updateProfile)),
             Center(child: But(text: 'Checkups', onpress: checkups))
           ]),

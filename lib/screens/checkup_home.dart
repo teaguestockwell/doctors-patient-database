@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../models/checkup.dart';
 import '../services/checkup_service.dart';
 import '../util.dart';
@@ -46,8 +45,8 @@ class _CheckupHomeState extends State<CheckupHome> {
             shrinkWrap: true,
             children: [
               HomeProvider(this.widget.patientid),
-              PastTripsView(this.widget.patientid),
-              //LastCheckupParaProvider(patientid: this.widget.patientid),
+              //PastTripsView(this.widget.patientid),
+              CheckupParaProvider(this.widget.patientid),
               Center(child: But(text: 'Add Checkup', onpress: addCheckup)),
               CheckupList(),
             ]

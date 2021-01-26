@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import '../models/patient.dart';
 import '../services/patient_service.dart';
 
-
 class HomeProvider extends StatefulWidget {
   final String patientid;
   HomeProvider(this.patientid);
@@ -34,11 +33,13 @@ class HomeInfo extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: ListView.builder(
-        itemCount: Patient.numFields,
+        itemCount: Patient.numFields+1,
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
-        itemBuilder: (_,i)
-          => Text('${pat.toMap.keys.elementAt(i)}: ${pat.toMap.values.elementAt(i)}')
+        itemBuilder: (_,i){
+          if(i==0){return Center(child: Text('patient'));}
+          return Text('${pat.toMap.keys.elementAt(i-1)}: ${pat.toMap.values.elementAt(i-1)}');
+        }
       ),
     );
   }

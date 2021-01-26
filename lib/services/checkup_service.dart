@@ -26,6 +26,14 @@ final CollectionReference checkupCollection = FirebaseFirestore.instance.collect
     );
   }
 
+  Stream<Checkup> getLastCheckup(String patientid) {
+    Query q = checkupCollection
+    .where("patientid", isEqualTo: patientid)
+    .orderBy('datetime',descending: true)
+    .limit(1);
+   return q.snapshots().map((qs) => Checkup.fromJson(qs.docs.last.data()));
+  }
+
   ///read many given
   Stream<List<Checkup>> searchCheckupGivenPatientId(String patientid){
   return checkupCollection.where('patientid', isEqualTo: patientid)

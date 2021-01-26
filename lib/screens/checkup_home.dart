@@ -46,7 +46,8 @@ class _CheckupHomeState extends State<CheckupHome> {
             shrinkWrap: true,
             children: [
               HomeProvider(this.widget.patientid),
-              LastCheckupParaProvider(patientid: this.widget.patientid),
+              PastTripsView(this.widget.patientid),
+              //LastCheckupParaProvider(patientid: this.widget.patientid),
               Center(child: But(text: 'Add Checkup', onpress: addCheckup)),
               CheckupList(),
             ]

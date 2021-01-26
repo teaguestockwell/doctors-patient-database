@@ -16,12 +16,6 @@ class PatientService{
     ).toList();
   }
 
-  // ///
-  // Future<bool> isUniqueId(String uuid) async {
-  //   QuerySnapshot rs = await patientsCollection.where('uuid', isEqualTo: uuid).get();
-  //   return rs.docs.isEmpty;
-  // }
-
    ///create
    Future create(Map m) async{
     return patientsCollection.doc().set(m);
@@ -41,23 +35,12 @@ class PatientService{
       .snapshots().map(_patientListFromSnapshots);
   }
 
-  // ///read many given
-  // Stream<List<Patient>> getPatientById(String id){
-  //   return patientsCollection.where('id', isEqualTo: id)
-  //     .snapshots().map(_patientListFromSnapshots);
-  // }
-  
   ///read all
   Stream<List<Patient>> get patients {
     return patientsCollection.snapshots()
       .map(_patientListFromSnapshots);
   }
   
-
-  // ///update
-  //  Future update(Map m, String id) async{
-  //   return patientsCollection.doc(id).set(m);
-  // }
 
    Future updateWherePatientid(Map m, String patientid){
     var query = patientsCollection.where('patientid', isEqualTo: patientid);

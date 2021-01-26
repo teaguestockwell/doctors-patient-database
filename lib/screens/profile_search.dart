@@ -47,33 +47,26 @@ class _ProfileSearchState extends State<ProfileSearch> {
       child: Scaffold(
         appBar: AppBar(title: Text('Patient Search')),
         body: Padding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(20),
           child: ListView(
             shrinkWrap: true,
-            //physics: NeverScrollableScrollPhysics(),
             children: [
               
-              Padding(
-                padding: const EdgeInsets.only(top:10),
-                child: TextField(
+                TextField(
                   controller: k,
                   onChanged: onSearch,
                   decoration: InputDecoration(
                     labelText: 'Search Key: Case Sensative'
                   )
-                 )
-              ),
-
-              Padding(
-                padding: const EdgeInsets.only(top:10),
-                child: TextField(
+                ),
+            
+                TextField(
                   onChanged: onSearch,
                   controller: v,
                   decoration: InputDecoration(
                     labelText: 'Search Value: Case Sensative'
                   )
-                 )
-              ),
+                ),
               
               Center(child: But(text: 'Add Patient', onpress: profileAdd)),
   

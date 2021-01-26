@@ -26,14 +26,6 @@ final CollectionReference checkupCollection = FirebaseFirestore.instance.collect
     );
   }
 
-  ///read newest latest date at id
-  // ignore: non_constant_identifier_names
-  Stream<Checkup> getLastCheckupGivenPatientId(String patientid){
-    return checkupCollection.where('patientid', isEqualTo: patientid)
-    .limit(1).snapshots().map((qs) => Checkup.fromJson(qs.docs.last.data())
-    );
-  }
-
   ///read many given
   Stream<List<Checkup>> searchCheckupGivenPatientId(String patientid){
   return checkupCollection.where('patientid', isEqualTo: patientid)
@@ -45,11 +37,6 @@ final CollectionReference checkupCollection = FirebaseFirestore.instance.collect
     return checkupCollection.snapshots()
       .map(_checkupListFromSnapshots);
   }
-
-  // ///update
-  //  Future update(Map m, String id) async{
-  //   return checkupCollection.doc(id).set(m);
-  // }
 
   ///update all where uuid
   Future updateWhereCheckupid(Map m, String checkupid){
@@ -73,8 +60,3 @@ final CollectionReference checkupCollection = FirebaseFirestore.instance.collect
   }
 
 }
-
-//to do remove ablity to make own patient id
-//rename patientid to patientuuid
-//rename id to uuid
-//orgramize crud

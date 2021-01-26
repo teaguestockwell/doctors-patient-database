@@ -1,50 +1,41 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/checkup.dart';
 import '../services/checkup_service.dart';
-
-class LastCheckupParaProvider extends StatefulWidget {
+class PastTripsView extends StatelessWidget {
   final String patientid;
-  LastCheckupParaProvider({@required this.patientid});
-  @override
-  _LastCheckupParaProviderState createState() => _LastCheckupParaProviderState();
-}
+  PastTripsView(this.patientid);
 
-class _LastCheckupParaProviderState extends State<LastCheckupParaProvider> {
-  var value;
-  
-  initState(){
-    super.initState();
-    value = CheckupService().getLastCheckupGivenPatientId(this.widget.patientid);
+  Stream<QuerySnapshot> qStream() {
+    CheckupService().checkupCollection
+    .where("patientid", isEqualTo: patientid)
+    .orderBy('datetime',descending: true)
+    .limit(1)
+    .snapshots();
   }
-  @override
-  Widget build(BuildContext context) {
-    return 
-    StreamProvider<Checkup>.value(
-      value: value,
-      child: LastCheckupBody()
-    );
-  }
-}
 
-class LastCheckupBody extends StatelessWidget {
-  @override
   Widget build(BuildContext context) {
-    final checkup = Provider.of<Checkup>(context) ?? Checkup.empty();
-
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: ListView.builder(
-        physics: NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: Checkup.numFields+1,
-        itemBuilder: (_,i){
-
-if(i==0){return Text('Last Checkup:');}
-return Text('${checkup.toMap.keys.elementAt(i-1)}: ${checkup.toMap.values.elementAt(i-1)}');
-
-
-        }
+      child: Container( 
+        child:StreamBuilder(
+          stream: qStream(),
+          builder: (_,s) {
+            Checkup c; 
+            if (!s.hasData && s.data != null){c=Checkup.fromJson(s.data.docs.last.data());}
+            else{c = Checkup.empty();}
+            return ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: Checkup.numFields+1,
+              itemBuilder: (_,i) {
+                if(i==0){return Text('Last Checkup:');}
+                return Text('${c.toMap.keys.elementAt(i-1)}: ${c.toMap.values.elementAt(i-1)}');
+              }
+            );
+          }
+        ),
       ),
     );
   }

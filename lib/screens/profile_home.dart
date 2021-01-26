@@ -46,14 +46,18 @@ class _ProfileHomeState extends State<ProfileHome> {
       value: value,
       child: Scaffold(
         appBar: AppBar(title: Text('Patient Profile')),
-        body: ListView(
-          shrinkWrap: true,
-          children: [
-          HomeProvider(this.widget.patientid),
-          LastCheckupParaProvider(patientid: this.widget.patientid),
-          Center(child: But(text: 'Update Profile', onpress: updateProfile)),
-          Center(child: But(text: 'Checkups', onpress: checkups))
-        ])
+        body: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+            HomeProvider(this.widget.patientid),
+            PastTripsView(this.widget.patientid),
+            //LastCheckupParaProvider(patientid: this.widget.patientid),
+            Center(child: But(text: 'Update Profile', onpress: updateProfile)),
+            Center(child: But(text: 'Checkups', onpress: checkups))
+          ]),
+        )
       )
     );
   }

@@ -26,6 +26,7 @@ dependencies:
   provider:
   firebase_core: ^0.5.0
   cloud_firestore: ^0.14.0
+  firebase_auth: 
   uuid: ^2.2.2
   intl: ^0.16.1
 

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:doctors_patient_database/services/checkup_service.dart';
 import '../models/patient.dart';
+import 'checkup_service.dart';
 
 class PatientService{
 

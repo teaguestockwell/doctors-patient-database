@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../constant.dart';
 import '../widgets/but.dart';
 import 'profile_search.dart';
@@ -17,6 +16,7 @@ class _AuthState extends State<Auth> {
   String email = '';
   String pass = '';
   Widget signInPage;
+  Image img = Image.asset('assets/0.png');
 
   @override
   void initState(){
@@ -25,6 +25,19 @@ class _AuthState extends State<Auth> {
     signInPage =  Scaffold(body:Padding(
       padding: const EdgeInsets.all(10.0),
       child: Center(child: ListView(children:[
+        Center(
+          child: Text(
+            'LPG Patient Care',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
+          )
+        ),
+
+        Container(
+          width: 500,
+          height: 500,
+          child: img,
+        ),
+
         TextField(
           decoration: InputDecoration(labelText: 'email'),
           onChanged: (x) => email = x,

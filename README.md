@@ -4,7 +4,7 @@ This is a web app was built using Dart, Flutter, Firestore NoSql, Stream Api, an
 
 A live demo is avalible here: https://doctors-patient-database.web.app/#/
 
-The stream api gave the flexibility of managing some state globbaly. Subsribing to querys, and collections as streams, gave the application to persistence data in real time between instances of the UI.
+The stream api gave the flexibility of managing some state globbaly. Subsribing to querys, and collections as streams, let the app persistence data in real time between instances of the UI.
 
 ![Screen Shot 2021-01-31 at 12 30 51](https://user-images.githubusercontent.com/71202372/106397034-507a6000-63c0-11eb-9e09-4432ffe1a55c.png)
 

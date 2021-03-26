@@ -6,6 +6,8 @@ A live demo is avalible here: https://doctors-patient-database.web.app/#/ email:
 
 The stream api gave the flexibility of managing some state globbaly. Subscribing to querys and collections as streams let the app persist data in real time between instances of the UI.
 
+![gif](https://user-images.githubusercontent.com/71202372/112575486-a3173d80-8dad-11eb-8aa7-a9d30fd821c4.gif)
+
 ![Screen Shot 2021-01-31 at 12 30 51](https://user-images.githubusercontent.com/71202372/106397034-507a6000-63c0-11eb-9e09-4432ffe1a55c.png)
 
 ![Screen Shot 2021-01-31 at 12 29 25](https://user-images.githubusercontent.com/71202372/106397045-5d974f00-63c0-11eb-83b9-ed1f0805d1b4.png)
